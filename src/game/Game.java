@@ -39,9 +39,9 @@ public class Game
         gui.addPlayer(player1.getGuiPlayer());
         gui.addPlayer(player2.getGuiPlayer());
 
-        this.movePlayer(player1);
+        //this.movePlayer(player1);
         gui.showMessage("Okay " + player1.getName() + ", you start.");
-        this.movePlayer(player2);
+        //this.movePlayer(player2);
     }
 
 
