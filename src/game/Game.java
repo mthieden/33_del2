@@ -2,9 +2,13 @@ package game;
 
 import dice.DiceCup;
 import gui_fields.GUI_Field;
+import gui_fields.GUI_Shipping;
 import gui_main.GUI;
 import player.Player;
 
+import javax.swing.*;
+import java.awt.*;
+import java.io.File;
 import java.util.Scanner;
 
 public class Game
@@ -16,6 +20,7 @@ public class Game
     private final Scanner input;
     private GUI gui;
     private GUI_Field[] fields;
+    private Player currentPlayer;
 
     public Game()
     {
@@ -24,6 +29,7 @@ public class Game
         GUI.setNull_fields_allowed(true);
 
         fields = new GUI_Field[40];
+        createField();
         gui = new GUI(fields);
 
         String welcome_msg = "Welcome to the amazing dice game, the rules are as following\n"
@@ -39,151 +45,98 @@ public class Game
         gui.addPlayer(player1.getGuiPlayer());
         gui.addPlayer(player2.getGuiPlayer());
 
-        //this.movePlayer(player1);
+        this.movePlayer(player1);
         gui.showMessage("Okay " + player1.getName() + ", you start.");
+        currentPlayer = player1;
         //this.movePlayer(player2);
     }
 
 
-    public void turn1()
+    public void rollDice()
+    {
+        dice.rollDice();
+        System.out.println(dice.getDice1());
+        System.out.println(dice.getDice2());
+        gui.setDice(dice.getDice1(), dice.getDice2());
+    }
+
+    public void turn(Player player)
     {
 
-        if (player1.getPoint() >= 40)
+        if (player.getPoint() >= 40)
         {
-            System.out.println(player1.getName() + " has to roll two identical to win the game.");
+            System.out.println(player.getName() + " has to roll two identical to win the game.");
         }
 
-        System.out.println(player1.getName() + " write 'roll' to dice");
+        System.out.println(player.getName() + " write 'roll' to dice");
         if ("roll".equalsIgnoreCase(input.nextLine()))
         {
-            dice.rollDice();
-            System.out.println(dice.getDice1());
-            System.out.println(dice.getDice2());
-            gui.setDice(dice.getDice1(), dice.getDice2());
 
             if (dice.twoOne())
             {
                 System.out.println("You rolled two 1's and lost all of your points.");
-                player1.resetPoint();
-                turn2();
+                player.resetPoint();
                 return;
             }
 
             // player wins if they roll two sixes two turns in a row
-            if (dice.getDice1() == 6 && dice.getDice2() == 6 && player1.getlastdice1() == 6 && player1.getLastdice2() == 6)
+            if (dice.getDice1() == 6 && dice.getDice2() == 6 && player.getlastdice1() == 6 && player.getLastdice2() == 6)
             {
                 System.out.println("Game over");
-                System.out.println(player1.getName() + " has won the game");
+                System.out.println(player.getName() + " has won the game");
                 return;
             } else
             {
-                player1.setlastdice1(dice.getDice1());
-                player1.setlastdice2(dice.getDice2());
+                player.setlastdice1(dice.getDice1());
+                player.setlastdice2(dice.getDice2());
             }
 
-            if (player1.getPoint() < 40 && dice.isSimiliar())
+            if (player.getPoint() < 40 && dice.isSimiliar())
             {
-                System.out.println(player1.getName() + " gets an extra turn!");
-                player1.addPoint(dice.getSum());
-                System.out.println(player1.getName() + " has " + player1.getPoint() + " points.");
-                turn1();
+                System.out.println(player.getName() + " gets an extra turn!");
+                player.addPoint(dice.getSum());
+                System.out.println(player.getName() + " has " + player.getPoint() + " points.");
                 return;
-            } else if (player1.getPoint() >= 40 && dice.isSimiliar())
+            } else if (player.getPoint() >= 40 && dice.isSimiliar())
             {
-                System.out.println(player1.getName() + " has won the game.");
+                System.out.println(player.getName() + " has won the game.");
                 return;
             }
-            player1.addPoint(dice.getSum());
+            player.addPoint(dice.getSum());
 
 
-            if (player1.getPoint() < 40)
+            if (player.getPoint() < 40)
             {
-                System.out.println(player1.getName() + " has " + player1.getPoint() + " points.");
+                System.out.println(player.getName() + " has " + player.getPoint() + " points.");
             } else
             {
-                System.out.println(player1.getName() + " has over 40 points, roll two identical to win");
+                System.out.println(player.getName() + " has over 40 points, roll two identical to win");
             }
 
             System.out.println();
-            turn2();
 
         } else
         {
             System.out.println("Please write roll :)");
             System.out.println();
-            turn1();
         }
 
     }
 
-    private void turn2()
+    public Player getCurrentPlayer()
     {
+        return currentPlayer;
+    }
 
-        if (player2.getPoint() >= 40)
+    public void changePlayer()
+    {
+        if (currentPlayer==player1)
         {
-            System.out.println(player2.getName() + " has to roll two identical to win the game.");
+            currentPlayer = player2;
         }
-
-        System.out.println(player2.getName() + " write 'roll' to dice");
-
-        if ("roll".equalsIgnoreCase(input.nextLine()))
+        else
         {
-            dice.rollDice();
-            System.out.println(dice.getDice1());
-            System.out.println(dice.getDice2());
-            gui.setDice(dice.getDice1(), dice.getDice2());
-
-            if (dice.twoOne())
-            {
-                System.out.println("You rolled two 1's and lost all of your points.");
-                player2.resetPoint();
-                turn1();
-                return;
-            }
-
-            // player wins if they roll two sixes two turns in a row
-            if (dice.getDice1() == 6 && dice.getDice2() == 6 && player2.getlastdice1() == 6 && player2.getLastdice2() == 6)
-            {
-                System.out.println("Game over");
-                System.out.println(player2.getName() + " has won the game");
-                return;
-            } else
-            {
-                player2.setlastdice1(dice.getDice1());
-                player2.setlastdice2(dice.getDice2());
-            }
-
-            if (player2.getPoint() < 40 && dice.isSimiliar())
-            {
-                System.out.println(player2.getName() + " gets an extra turn!");
-                player2.addPoint(dice.getSum());
-                System.out.println(player2.getName() + " has " + player2.getPoint() + " points.");
-                turn2();
-                return;
-            } else if (player2.getPoint() >= 40 && dice.isSimiliar())
-            {
-                System.out.println(player2.getName() + " has won the game");
-                return;
-            }
-            player2.addPoint(dice.getSum());
-
-            if (player2.getPoint() < 40)
-            {
-                System.out.println(player2.getName() + " has " + player2.getPoint() + " points.");
-            } else
-            {
-                System.out.println(player2.getName() + " has over 40 points, roll two identical to win");
-            }
-
-
-            System.out.println();
-            turn1();
-
-        } else
-        {
-            System.out.println("Please write roll :)");
-            System.out.println();
-            turn2();
+            currentPlayer = player1;
         }
     }
 
@@ -197,7 +150,15 @@ public class Game
 
     public void createField()
     {
-       
+        // Get the absolut file path for images in a way that works cross platform
+        String IMAGE_DIR_PATH = System.getProperty("user.dir") + File.separator +"img"  + File.separator;
+
+        GUI_Shipping stuff = new GUI_Shipping(IMAGE_DIR_PATH+"images.jpg","titel", "subText", "description", "rent", Color.PINK , Color.CYAN);
+        GUI_Shipping stuff2 = new GUI_Shipping(IMAGE_DIR_PATH+"face.png","titel", "subText", "description", "rent", Color.PINK , Color.CYAN);
+        fields[0] = stuff;
+        fields[1] = stuff2;
+        System.out.println(stuff.getRent());
+
     }
 
 
