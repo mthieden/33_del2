@@ -2,6 +2,7 @@ package game;
 
 import dice.DiceCup;
 import gui_fields.GUI_Field;
+import gui_fields.GUI_Jail;
 import gui_fields.GUI_Shipping;
 import gui_main.GUI;
 import player.Player;
@@ -45,7 +46,7 @@ public class Game
         gui.addPlayer(player1.getGuiPlayer());
         gui.addPlayer(player2.getGuiPlayer());
 
-        this.movePlayer(player1);
+        this.movePlayer(player1,2);
         gui.showMessage("Okay " + player1.getName() + ", you start.");
         currentPlayer = player1;
         //this.movePlayer(player2);
@@ -140,25 +141,53 @@ public class Game
         }
     }
 
-    public void movePlayer(Player player)
+    public void movePlayer(Player player, int roll)
     {
-        fields[0].setCar(player.getGuiPlayer(), true);
-        gui.showMessage("Moving the car");
-        fields[0].removeAllCars();
-        fields[1].setCar(player.getGuiPlayer(), true);
+        for (int i = 0; i<40; i++)
+        {
+            fields[i].removeAllCars();
+        }
+        fields[roll-1].setCar(player.getGuiPlayer(), true);
+        updateCash(player, fields[roll-1]);
+        gui.showMessage(fields[roll-1].getDescription());
+
     }
 
     public void createField()
     {
         // Get the absolut file path for images in a way that works cross platform
-        String IMAGE_DIR_PATH = System.getProperty("user.dir") + File.separator +"img"  + File.separator;
+        String IMAGE_DIR_PATH = System.getProperty("user.dir") + File.separator  + "img" + File.separator;
 
-        GUI_Shipping stuff = new GUI_Shipping(IMAGE_DIR_PATH+"images.jpg","titel", "subText", "description", "rent", Color.PINK , Color.CYAN);
-        GUI_Shipping stuff2 = new GUI_Shipping(IMAGE_DIR_PATH+"face.png","titel", "subText", "description", "rent", Color.PINK , Color.CYAN);
-        fields[0] = stuff;
-        fields[1] = stuff2;
-        System.out.println(stuff.getRent());
+        GUI_Shipping field0 = new GUI_Shipping(IMAGE_DIR_PATH+"images.jpg","Start", "subText", "description", "0", Color.PINK , Color.CYAN);
+        GUI_Shipping field1 = new GUI_Shipping(IMAGE_DIR_PATH+"images.jpg","Tower", "+250", "description", "+250", Color.PINK , Color.CYAN);
+        GUI_Shipping field2 = new GUI_Shipping(IMAGE_DIR_PATH+"images.jpg","Crater", "subText", "description", "-100", Color.PINK , Color.CYAN);
+        GUI_Shipping field3 = new GUI_Shipping(IMAGE_DIR_PATH+"images.jpg","Palace gates", "subText", "description", "+100", Color.PINK , Color.CYAN);
+        GUI_Shipping field4 = new GUI_Shipping(IMAGE_DIR_PATH+"images.jpg","Cold Desert", "subText", "description", "-20", Color.PINK , Color.CYAN);
+        GUI_Shipping field5 = new GUI_Shipping(IMAGE_DIR_PATH+"images.jpg","Walled city", "subText", "description", "+180", Color.PINK , Color.CYAN);
+        GUI_Shipping field6 = new GUI_Shipping(IMAGE_DIR_PATH+"images.jpg","Monastery", "subText", "description", "0", Color.PINK , Color.CYAN);
+        GUI_Shipping field7 = new GUI_Shipping(IMAGE_DIR_PATH+"images.jpg","Black cave", "subText", "description", "-70", Color.PINK , Color.CYAN);
+        GUI_Shipping field8 = new GUI_Shipping(IMAGE_DIR_PATH+"images.jpg","Huts in the mountain", "", "description", "+60", Color.PINK , Color.CYAN);
+        GUI_Shipping field9 = new GUI_Shipping(IMAGE_DIR_PATH+"images.jpg","The Werewall", "", "description", "-80", Color.PINK , Color.CYAN);
+        GUI_Shipping field10 = new GUI_Shipping(IMAGE_DIR_PATH+"images.jpg","The pit", "subText", "description", "-50", Color.PINK , Color.CYAN);
+        GUI_Shipping field11 = new GUI_Shipping(IMAGE_DIR_PATH+"images.jpg","Goldmine", "subText", "description", "+650", Color.PINK , Color.CYAN);
 
+
+        for (int i = 0; i<40; i++)
+        {
+            fields[i]= new GUI_Jail();
+        }
+        fields[0] = field0;
+        fields[1] = field1;
+        fields[2] = field2;
+        fields[3] = field3;
+        fields[4] = field4;
+        fields[5] = field5;
+        fields[6] = field6;
+        fields[7] = field7;
+        fields[8] = field8;
+        fields[9] = field9;
+        fields[10] = field10;
+        fields[11] = field11;
     }
 
 
