@@ -143,14 +143,32 @@ public class Game
 
     public void movePlayer(Player player, int roll)
     {
+        Player otherPlayer;
+        if (player==player1)
+        {
+            otherPlayer=player2;
+        }
+        else
+        {
+            otherPlayer=player1;
+        }
+
         for (int i = 0; i<40; i++)
         {
-            fields[i].removeAllCars();
+            if(fields[i].hasCar(otherPlayer.getGuiPlayer()))
+            {
+                fields[i].removeAllCars();
+                fields[i].setCar(otherPlayer.getGuiPlayer(), true);
+            }
+            else
+            {
+                fields[i].removeAllCars();
+            }
         }
-        fields[roll-1].setCar(player.getGuiPlayer(), true);
-        updateCash(player, fields[roll-1]);
-        gui.showMessage(fields[roll-1].getDescription());
 
+        fields[roll-1].setCar(player.getGuiPlayer(), true);
+        player.addPoint(Integer.parseInt(fields[roll-1].getSubText()));
+        gui.showMessage(fields[roll-1].getDescription());
     }
 
     public void createField()
