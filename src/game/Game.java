@@ -22,6 +22,7 @@ public class Game
     private GUI gui;
     private GUI_Field[] fields;
     private Player currentPlayer;
+    private boolean gameOver;
 
     public Game()
     {
@@ -32,6 +33,8 @@ public class Game
         fields = new GUI_Field[40];
         createField();
         gui = new GUI(fields, Color.WHITE);
+
+        gameOver = false;
 
         String welcome_msg = "Welcome to the amazing dice game, the rules are as following\n"
                 + "Rule 0: Each player rolls two dice and add their total sum of eyes to the players points.\n"
@@ -46,80 +49,42 @@ public class Game
         gui.addPlayer(player1.getGuiPlayer());
         gui.addPlayer(player2.getGuiPlayer());
 
-        this.movePlayer(player1,2);
         gui.showMessage("Okay " + player1.getName() + ", you start.");
         currentPlayer = player1;
         //this.movePlayer(player2);
     }
 
+    public boolean isGameOver() {
+        return gameOver;
+    }
 
     public void rollDice()
     {
         dice.rollDice();
-        System.out.println(dice.getDice1());
-        System.out.println(dice.getDice2());
         gui.setDice(dice.getDice1(), dice.getDice2());
     }
 
+
     public void turn(Player player)
     {
+        gui.showMessage("It is " + player.getName() + "'s turn");
 
-        if (player.getPoint() >= 40)
+        rollDice();
+        movePlayer(player, dice.getSum());
+        gameOver();
+
+        if(dice.getSum() != 10)
         {
-            System.out.println(player.getName() + " has to roll two identical to win the game.");
+            changePlayer();
         }
+    }
 
-        System.out.println(player.getName() + " write 'roll' to dice");
-        if ("roll".equalsIgnoreCase(input.nextLine()))
+    public void gameOver()
+    {
+        if (currentPlayer.getPoint() >= 3000)
         {
-
-            if (dice.twoOne())
-            {
-                System.out.println("You rolled two 1's and lost all of your points.");
-                player.resetPoint();
-                return;
-            }
-
-            // player wins if they roll two sixes two turns in a row
-            if (dice.getDice1() == 6 && dice.getDice2() == 6 && player.getlastdice1() == 6 && player.getLastdice2() == 6)
-            {
-                System.out.println("Game over");
-                System.out.println(player.getName() + " has won the game");
-                return;
-            } else
-            {
-                player.setlastdice1(dice.getDice1());
-                player.setlastdice2(dice.getDice2());
-            }
-
-            if (player.getPoint() < 40 && dice.isSimiliar())
-            {
-                System.out.println(player.getName() + " gets an extra turn!");
-                player.addPoint(dice.getSum());
-                System.out.println(player.getName() + " has " + player.getPoint() + " points.");
-                return;
-            } else if (player.getPoint() >= 40 && dice.isSimiliar())
-            {
-                System.out.println(player.getName() + " has won the game.");
-                return;
-            }
-            player.addPoint(dice.getSum());
-
-
-            if (player.getPoint() < 40)
-            {
-                System.out.println(player.getName() + " has " + player.getPoint() + " points.");
-            } else
-            {
-                System.out.println(player.getName() + " has over 40 points, roll two identical to win");
-            }
-
-            System.out.println();
-
-        } else
-        {
-            System.out.println("Please write roll :)");
-            System.out.println();
+            this.gameOver = true;
+            gui.showMessage("The game is over, " + currentPlayer.getName() + " has won!!");
         }
 
     }
@@ -153,7 +118,7 @@ public class Game
             otherPlayer=player1;
         }
 
-        for (int i = 0; i<40; i++)
+        for (int i = 0; i<12; i++)
         {
             if(fields[i].hasCar(otherPlayer.getGuiPlayer()))
             {

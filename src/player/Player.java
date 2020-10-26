@@ -19,7 +19,7 @@ public class Player
     {
         try
         {
-            point = 0;
+            point = 1000;
             playerName = gui.getUserString("Input player name");
             String col = gui.getUserSelection("Choose color for " + playerName, "BLACK",
                     "BLUE",
@@ -68,6 +68,9 @@ public class Player
     public void addPoint(int point)
     {
         this.point += point;
+        if(this.point < 0) {
+            this.point = 0;
+        }
         this.gui_player.setBalance(this.point);
     }
 
