@@ -142,17 +142,17 @@ public class Game
         String IMAGE_DIR_PATH = System.getProperty("user.dir") + File.separator +"img"  + File.separator;
 
         fields[0] = new GUI_Shipping(IMAGE_DIR_PATH+"start.png","Start", "  ", "You stand at the start of your journey. Good Luck!", "rent", Color.CYAN , Color.BLACK);
-        fields[1] = new GUI_Shipping(IMAGE_DIR_PATH+"tower.png","Tower", "+250", "You found a gold stash in the nearby tower, You gain 250$. Lucky you!", "+250", Color.GREEN , Color.BLACK);
-        fields[2] = new GUI_Shipping(IMAGE_DIR_PATH+"crater.jpg","Crater", "-100", "One of your bags falls into the crater, you lose 100$", "-100", Color.ORANGE , Color.BLACK);
-        fields[3] = new GUI_Shipping(IMAGE_DIR_PATH+"palacegates.png","Palace gates", "+100", " You sell your goods on the maked beside palace gates, you earned 100$", "+100", Color.GREEN , Color.BLACK);
-        fields[4] = new GUI_Shipping(IMAGE_DIR_PATH+"colddesert.jpg","Cold desert", "-20", "You had to pay 20$ to a beduin to access the oasis on a cold dessert.", "-20", Color.ORANGE , Color.BLACK);
-        fields[5] = new GUI_Shipping(IMAGE_DIR_PATH+"walledcity.jpg","Walled City", "+180", "You enter the rich walled city. They give you 180$! Nice people. ", "+180", Color.GREEN , Color.BLACK);
+        fields[1] = new GUI_Shipping(IMAGE_DIR_PATH+"tower.png","Tower", "+250", "You found a gold stash in the nearby tower, You gain $250. Lucky you!", "+250", Color.GREEN , Color.BLACK);
+        fields[2] = new GUI_Shipping(IMAGE_DIR_PATH+"crater.jpg","Crater", "-100", "One of your bags falls into the crater, you lose $100", "-100", Color.ORANGE , Color.BLACK);
+        fields[3] = new GUI_Shipping(IMAGE_DIR_PATH+"palacegates.png","Palace gates", "+100", " You sell your goods on the market beside palace gates, you earned $100", "+100", Color.GREEN , Color.BLACK);
+        fields[4] = new GUI_Shipping(IMAGE_DIR_PATH+"colddesert.jpg","Cold desert", "-20", "You had to pay $20 to a beduin to access the oasis in a cold desert.", "-20", Color.ORANGE , Color.BLACK);
+        fields[5] = new GUI_Shipping(IMAGE_DIR_PATH+"walledcity.jpg","Walled City", "+180", "You enter the rich walled city. They give you $180! Nice people.", "+180", Color.GREEN , Color.BLACK);
         fields[6] = new GUI_Shipping(IMAGE_DIR_PATH+"monastery.jpg","Monastery", "0", "You visit a monastery. Nothing happens here. Boring.", "0", Color.YELLOW , Color.BLACK);
-        fields[7] = new GUI_Shipping(IMAGE_DIR_PATH+"blackcave.png","Black Cave", "-70", "You get robbed while sleeping in a black cave, angry bandits took 70$", "-70", Color.ORANGE , Color.BLACK);
-        fields[8] = new GUI_Shipping(IMAGE_DIR_PATH+"hutsinthemountain.jpg","Huts in the mountain", "+60", "You help elderly people living in the mountains with wood chopping. In reward they give you 60$", "+60", Color.GREEN , Color.BLACK);
-        fields[9] = new GUI_Shipping(IMAGE_DIR_PATH+"werewall.jpg","The Werewall", "-80", "The werewolfs  demand payment from you for not eating you alive. You pay them 80$ and run as fast as you can from the werewall. You get an extra turn", "-80", Color.YELLOW , Color.BLACK);
-        fields[10] = new GUI_Shipping(IMAGE_DIR_PATH+"thepit.jpg","The Pit", "-50", "While falling into the pit your gold stash opens and you lose 50$. Watch out next time maybe? ", "-150", Color.ORANGE , Color.BLACK);
-        fields[11] = new GUI_Shipping(IMAGE_DIR_PATH+"goldmine.jpg","Goldmine", "+650", "While visiting an old goldmine you find a big chunk of gold! You sell it for 650$ in the nearby city. You're rich now. Wow.", "+650", Color.green , Color.BLACK);
+        fields[7] = new GUI_Shipping(IMAGE_DIR_PATH+"blackcave.png","Black Cave", "-70", "You get robbed while sleeping in a black cave, angry bandits took $70", "-70", Color.ORANGE , Color.BLACK);
+        fields[8] = new GUI_Shipping(IMAGE_DIR_PATH+"hutsinthemountain.jpg","Huts in the mountain", "+60", "You help elderly people living in the mountains with wood chopping. As a reward they give you $60", "+60", Color.GREEN , Color.BLACK);
+        fields[9] = new GUI_Shipping(IMAGE_DIR_PATH+"werewall.jpg","The Werewall", "-80", "The werewolves demand payment from you for not eating you alive. You pay them $80 and run as fast as you can from the Werewall. You get an extra turn", "-80", Color.YELLOW , Color.BLACK);
+        fields[10] = new GUI_Shipping(IMAGE_DIR_PATH+"thepit.jpg","The Pit", "-50", "While falling into the pit your gold stash opens and you lose $50. Watch out next time maybe?", "-50", Color.ORANGE , Color.BLACK);
+        fields[11] = new GUI_Shipping(IMAGE_DIR_PATH+"goldmine.jpg","Goldmine", "+650", "While visiting an old goldmine you find a big chunk of gold! You sell it for $650 in the nearby city. You're rich now. Wow.", "+650", Color.green , Color.BLACK);
     }
 
 
