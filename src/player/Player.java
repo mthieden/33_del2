@@ -10,8 +10,6 @@ public class Player
 {
 
     private int point;
-    private int lastdice1;
-    private int lastdice2;
     private String playerName;
     private GUI_Player gui_player;
 
@@ -46,8 +44,14 @@ public class Player
         {
             e.printStackTrace();
         }
-        lastdice1 = 0;
-        lastdice2 = 0;
+    }
+    public Player(String playerName)
+    {
+        this.playerName=playerName;
+        point = 1000;
+        GUI_Car car = new GUI_Car();
+        car.setPrimaryColor(Color.RED);
+        gui_player = new GUI_Player(playerName, point, car);
     }
 
     public String getName()
@@ -78,26 +82,5 @@ public class Player
     {
         return gui_player;
     }
-
-    public int getlastdice1()
-    {
-        return lastdice1;
-    }
-
-    public int getLastdice2()
-    {
-        return lastdice2;
-    }
-
-    public void setlastdice1(int eyes)
-    {
-        lastdice1 = eyes;
-    }
-
-    public void setlastdice2(int eyes)
-    {
-        lastdice2 = eyes;
-    }
-
 
 }

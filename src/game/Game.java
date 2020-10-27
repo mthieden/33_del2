@@ -48,14 +48,35 @@ public class Game
         player2 = new Player(gui);
         gui.addPlayer(player1.getGuiPlayer());
         gui.addPlayer(player2.getGuiPlayer());
-
         gui.showMessage("Okay " + player1.getName() + ", you start.");
         currentPlayer = player1;
-        //this.movePlayer(player2);
+    }
+
+    public Game(String playerName1, String playerName2)
+    {
+        input = new Scanner(System.in);
+        dice = new DiceCup();
+        GUI.setNull_fields_allowed(true);
+
+        fields = new GUI_Field[40];
+        createField();
+        gui = new GUI(fields, Color.WHITE);
+
+        gameOver = false;
+
+        player1 = new Player(playerName1);
+        player2 = new Player(playerName2);
+        gui.addPlayer(player1.getGuiPlayer());
+        gui.addPlayer(player2.getGuiPlayer());
+        currentPlayer = player1;
     }
 
     public boolean isGameOver() {
         return gameOver;
+    }
+
+    public void close() {
+        this.gui.close();
     }
 
     public void rollDice()
@@ -63,7 +84,6 @@ public class Game
         dice.rollDice();
         gui.setDice(dice.getDice1(), dice.getDice2());
     }
-
 
     public void turn(Player player)
     {
@@ -84,9 +104,14 @@ public class Game
         if (currentPlayer.getPoint() >= 3000)
         {
             this.gameOver = true;
-            gui.showMessage("The game is over, " + currentPlayer.getName() + " has won!!");
         }
 
+    }
+    public void endGame()
+    {
+        this.gameOver = true;
+        gui.showMessage("The game is over, " + currentPlayer.getName() + " has won!!");
+        gui.close();
     }
 
     public Player getCurrentPlayer()
