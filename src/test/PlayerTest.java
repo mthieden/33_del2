@@ -1,10 +1,14 @@
 package test;
 
+import gui_fields.GUI_Player;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import player.Player;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.hamcrest.CoreMatchers.instanceOf;
+import static org.junit.Assert.assertThat;
 
 class PlayerTest {
 
@@ -33,5 +37,11 @@ class PlayerTest {
         assertEquals(player.getPoints(), 700);
         player.addPoints(-750);
         assertEquals(player.getPoints(), 0);
+    }
+
+    @Test
+    void getGuiPlayer()
+    {
+        assertThat(player.getGuiPlayer(), instanceOf(GUI_Player.class));
     }
 }
