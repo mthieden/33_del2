@@ -34,12 +34,9 @@ public class Game
 
         gameOver = false;
 
-        String welcome_msg = "Welcome to the amazing dice game, the rules are as following\n"
-                + "Rule 0: Each player rolls two dice and add their total sum of eyes to the players points.\n"
-                + "Rule 1: The player loses all his points if the player rolls  two 1s and the turn changes to the opposing players turn.\n"
-                + "Rule 2: The player gets an extra turn if the player rolls two identical dice.\n"
-                + "Rule 3: The player can win the game by rolling two 6s if the player also hit two 6s in the previous roll.\n"
-                + "Rule 4: The player must roll two identical dice to win the game after scoring 40 points.\n";
+        String welcome_msg = "Welcome to the game!\n"
+                + "You start with $1000 and gain or lose money depending on the fields you land on.\n"
+                + "First person to $3000 wins!\n";
         gui.showMessage(welcome_msg);
 
         player1 = new Player(gui);
