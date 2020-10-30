@@ -1,5 +1,6 @@
-package game;
+package test;
 
+import game.Game;
 import org.junit.jupiter.api.AfterEach;
 
 import static org.junit.jupiter.api.Assertions.*;
