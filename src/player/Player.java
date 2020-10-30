@@ -59,20 +59,20 @@ public class Player
         return playerName;
     }
 
-    public int getPoint()
+    public int getPoints()
     {
         return account.getBalance();
     }
 
-    public void addPoint(int point)
+    public void addPoints(int points)
     {
-        if (point > 0)
+        if (points > 0)
         {
-            account.deposit(point);
+            account.deposit(points);
         }
         else
         {
-            account.withdraw(point);
+            account.withdraw(points);
         }
         this.gui_player.setBalance(account.getBalance());
     }

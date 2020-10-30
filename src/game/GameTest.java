@@ -1,7 +1,6 @@
 package game;
 
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -27,7 +26,7 @@ class GameTest
     void isGameOver()
     {
         assertFalse(game.isGameOver());
-        game.getCurrentPlayer().addPoint(3000);
+        game.getCurrentPlayer().addPoints(3000);
         game.gameOver();
         assertTrue(game.isGameOver());
     }
@@ -43,7 +42,7 @@ class GameTest
     void gameOver()
     {
         assertFalse(game.isGameOver());
-        game.getCurrentPlayer().addPoint(3000);
+        game.getCurrentPlayer().addPoints(3000);
         game.gameOver();
         assertTrue(game.isGameOver());
     }

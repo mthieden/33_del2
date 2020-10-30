@@ -2,12 +2,10 @@ package game;
 
 import dice.DiceCup;
 import gui_fields.GUI_Field;
-import gui_fields.GUI_Jail;
 import gui_fields.GUI_Shipping;
 import gui_main.GUI;
 import player.Player;
 
-import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.util.Scanner;
@@ -101,7 +99,7 @@ public class Game
 
     public void gameOver()
     {
-        if (currentPlayer.getPoint() >= 3000)
+        if (currentPlayer.getPoints() >= 3000)
         {
             this.gameOver = true;
         }
@@ -157,7 +155,7 @@ public class Game
         }
 
         fields[roll-1].setCar(player.getGuiPlayer(), true);
-        player.addPoint(Integer.parseInt(fields[roll-1].getSubText()));
+        player.addPoints(Integer.parseInt(fields[roll-1].getSubText()));
         gui.showMessage(fields[roll-1].getDescription());
     }
 
