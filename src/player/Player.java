@@ -72,7 +72,7 @@ public class Player
         }
         else
         {
-            account.withdraw(points);
+            account.withdraw(Math.abs(points));
         }
         this.gui_player.setBalance(account.getBalance());
     }
