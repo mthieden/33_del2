@@ -9,7 +9,7 @@ import java.awt.*;
 public class Player
 {
 
-    private int point;
+    private Account account;
     private String playerName;
     private GUI_Player gui_player;
 
@@ -17,7 +17,7 @@ public class Player
     {
         try
         {
-            point = 1000;
+            account = new Account(1000);
             playerName = gui.getUserString("Input player name");
             String col = gui.getUserSelection("Choose color for " + playerName, "BLACK",
                     "BLUE",
@@ -36,7 +36,7 @@ public class Player
             Color i = (Color) Color.class.getDeclaredField(col).get(null);
             GUI_Car car = new GUI_Car();
             car.setPrimaryColor(i);
-            gui_player = new GUI_Player(playerName, point, car);
+            gui_player = new GUI_Player(playerName, account.getBalance(), car);
         } catch (IllegalAccessException e)
         {
             e.printStackTrace();
@@ -48,10 +48,10 @@ public class Player
     public Player(String playerName)
     {
         this.playerName=playerName;
-        point = 1000;
+        account = new Account(1000);
         GUI_Car car = new GUI_Car();
         car.setPrimaryColor(Color.RED);
-        gui_player = new GUI_Player(playerName, point, car);
+        gui_player = new GUI_Player(playerName, account.getBalance(), car);
     }
 
     public String getName()
@@ -61,21 +61,20 @@ public class Player
 
     public int getPoint()
     {
-        return point;
-    }
-
-    public void resetPoint()
-    {
-        point = 0;
+        return account.getBalance();
     }
 
     public void addPoint(int point)
     {
-        this.point += point;
-        if(this.point < 0) {
-            this.point = 0;
+        if (point > 0)
+        {
+            account.deposit(point);
         }
-        this.gui_player.setBalance(this.point);
+        else
+        {
+            account.withdraw(point);
+        }
+        this.gui_player.setBalance(account.getBalance());
     }
 
     public GUI_Player getGuiPlayer()
